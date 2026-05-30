@@ -55,8 +55,12 @@
  * frequency. */
 
 
+
 //// I made 16Mhz as SEG.
-#define configCPU_CLOCK_HZ    ( ( unsigned long ) 16000000 )
+extern uint32_t SystemCoreClock;
+#define configCPU_CLOCK_HZ    ( SystemCoreClock )
+////
+
 
 /* configSYSTICK_CLOCK_HZ is an optional parameter for ARM Cortex-M ports only.
  *
@@ -667,5 +671,32 @@
 #define INCLUDE_xTaskAbortDelay                0
 #define INCLUDE_xTaskGetHandle                 0
 #define INCLUDE_xTaskResumeFromISR             1
+
+
+
+
+
+
+
+
+////  I added those as SEG
+
+// For Interrupts
+#define vPortSVCHandler SVC_Handler
+#define xPortPendSVHandler PendSV_Handler
+#define xPortSysTickHandler SysTick_Handler
+
+// Cortex-M-specific priority definitions
+#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         15
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY    5
+
+// The actual register values to be used by FreeRTOS (shifted 4 bits to the left)
+#define configKERNEL_INTERRUPT_PRIORITY         ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << 4 )
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY    ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << 4 )
+
+////
+
+
+
 
 #endif /* FREERTOS_CONFIG_H */

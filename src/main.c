@@ -19,9 +19,9 @@ int main(void)
 	SystemCoreClockUpdate(); //-> It can do for changing the variable of 'SystemCoreClock' (So it'll be 16Mhz)
 
 	////// Creating a new task
-	xTaskCreate(Task1_Handler, "Task1", configMINIMAL_STACK_SIZE, NULL, 4, &myTask1Handle);
+	xTaskCreate(Task1_Handler, "Görev 1", configMINIMAL_STACK_SIZE, NULL, 4, &myTask1Handle);
 
-	xTaskCreate(Task2_Handler, "Task2", configMINIMAL_STACK_SIZE, NULL, 4, &myTask2Handle);
+	xTaskCreate(Task2_Handler, "Görev 2", configMINIMAL_STACK_SIZE, NULL, 4, &myTask2Handle);
 
 	/*
 	 xTaskCreate(
@@ -33,6 +33,8 @@ int main(void)
 					TaskHandle_t * const pxCreatedTask
 				)
 	 */
+
+	vTaskStartScheduler();
 
 	while (1)
 	{
